@@ -42,6 +42,8 @@ public class MainFrame extends JFrame implements ActionListener{
 	
 	private static Random ran = new Random();
 	
+	// Github Test
+	
 	// Ship model related
 	private static ShipModel[] shipModelArray = new ShipModel[10];
 	private static ArrayList<Integer> compUsedModels = new ArrayList<>();
