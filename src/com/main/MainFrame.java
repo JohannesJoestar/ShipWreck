@@ -44,6 +44,8 @@ public class MainFrame extends JFrame implements ActionListener{
 	
 	// Github Test
 	
+	// asd
+	
 	// Ship model related
 	private static ShipModel[] shipModelArray = new ShipModel[10];
 	private static ArrayList<Integer> compUsedModels = new ArrayList<>();
