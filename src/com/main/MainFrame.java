@@ -42,21 +42,13 @@ public class MainFrame extends JFrame implements ActionListener{
 	
 	private static Random ran = new Random();
 	
-	// Github Test
-	
-	// asd
-	
 	// Ship model related
-	private static ShipModel[] shipModelArray = new ShipModel[10];
+	private static ShipModel[] modelArray = new ShipModel[10];
 	private static ArrayList<Integer> compUsedModels = new ArrayList<>();
 	
-	// Labels
+	// Components
 	private static JLabel infoLabel;
-	
-	// Panels
 	private JPanel contentPane;
-	
-	// Buttons
 	private static JButton debugReveal;
 
 	/**
@@ -81,7 +73,7 @@ public class MainFrame extends JFrame implements ActionListener{
 					infoLabel.setText("Computer has placed their ships, you're placing now!");
 					
 					// Disable computer buttons
-					adjustButtons(compArray, "disable");
+					updateButtons(compArray, "disable");
 					
 					// Computer places ship
 					while (countType(compArray, AreaType.SHIP) != 14){
@@ -294,7 +286,7 @@ public class MainFrame extends JFrame implements ActionListener{
 				}
 			} catch (Exception e) {}
 			
-			shipModelArray[p] = sm;
+			modelArray[p] = sm;
 			contentPane.add(sm);
 		}
 		
@@ -313,6 +305,7 @@ public class MainFrame extends JFrame implements ActionListener{
 				area.addMouseListener(new MouseAdapter(){
 					@Override
 					public void mouseEntered(MouseEvent arg0){
+						
 						// Render the guideline for ship placement
 						if (isPlacing && isSafeToPlace(userArray, area, selectedShipModel)){
 							if (selectedShipModel < 6){
@@ -384,18 +377,18 @@ public class MainFrame extends JFrame implements ActionListener{
 								// Disable picked option, enable next ship models to be placed
 								// Debug: System.out.println(shipModel);
 								if (selectedShipModel < 6){
-									shipModelArray[selectedShipModel - 1].setVisible(false);
-									shipModelArray[selectedShipModel + 3].setVisible(false);
+									modelArray[selectedShipModel - 1].setVisible(false);
+									modelArray[selectedShipModel + 3].setVisible(false);
 									if (selectedShipModel != 5){ // Condition so that the previous models won't re-appear
-										shipModelArray[selectedShipModel].setVisible(true);
+										modelArray[selectedShipModel].setVisible(true);
 									}
-									shipModelArray[selectedShipModel + 4].setVisible(true);
+									modelArray[selectedShipModel + 4].setVisible(true);
 								} else {
-									shipModelArray[selectedShipModel - 1].setVisible(false);
-									shipModelArray[selectedShipModel - 5].setVisible(false);
-									shipModelArray[selectedShipModel].setVisible(true);
+									modelArray[selectedShipModel - 1].setVisible(false);
+									modelArray[selectedShipModel - 5].setVisible(false);
+									modelArray[selectedShipModel].setVisible(true);
 									if (selectedShipModel != 9){ // Condition so that the previous models won't re-appear
-										shipModelArray[selectedShipModel - 4].setVisible(true);
+										modelArray[selectedShipModel - 4].setVisible(true);
 									}
 								}
 								
@@ -498,7 +491,7 @@ public class MainFrame extends JFrame implements ActionListener{
 				
 				if (!isHitting){
 					Thread.sleep(1000);
-					adjustButtons(compArray, "disable");
+					updateButtons(compArray, "disable");
 					Thread.sleep(500);infoLabel.setText("Computer is deciding");
 					Thread.sleep(500);infoLabel.setText("Computer is deciding.");
 					Thread.sleep(500);infoLabel.setText("Computer is deciding..");
@@ -526,7 +519,8 @@ public class MainFrame extends JFrame implements ActionListener{
 						doInBackground();
 						}
 					
-					Thread.sleep(500);adjustButtons(compArray, "enable");
+					Thread.sleep(500);
+					updateButtons(compArray, "enable");
 				}
 				return null;
 			}
@@ -537,8 +531,7 @@ public class MainFrame extends JFrame implements ActionListener{
 		
 	}
 
-	public static void adjustButtons(JButton[][] array, String statement){
-		// Disables or enables buttons in an array
+	public static void updateButtons(JButton[][] array, String statement){
 		if (statement.equals("disable")){
 			for (int p = 0; p < array.length; p++){
 				for (int q = 0; q < array.length; q++){
@@ -556,7 +549,6 @@ public class MainFrame extends JFrame implements ActionListener{
 	}
 
 	public static int countType(Area[][] array, AreaType type){
-		// Counts the amount of specified AreaTypes in an Area array
 		int count = 0;
 		for (int p = 0; p < array.length; p++){
 			for (int q = 0; q < array.length; q++){
@@ -569,7 +561,6 @@ public class MainFrame extends JFrame implements ActionListener{
 	}
 
 	public static boolean isSafeToPlace(Area[][] array, Area area, int shipModel){
-		// Checks collision and out-of-bounds possibilities
 		boolean result = true;
 		if (shipModel < 6){
 			for (int p = 0; p < shipModel; p++){
@@ -612,14 +603,14 @@ public class MainFrame extends JFrame implements ActionListener{
 		if (countType(userArray, AreaType.HIT) == 14){
 			JOptionPane.showMessageDialog(null, "Computer wins!");
 			infoLabel.setText("Computer won!");
-			adjustButtons(compArray, "disable");
-			adjustButtons(userArray, "disable");
+			updateButtons(compArray, "disable");
+			updateButtons(userArray, "disable");
 			isHitting = true;
 		} else if (countType(compArray, AreaType.HIT) == 14){
 			JOptionPane.showMessageDialog(null, "User wins!");
 			infoLabel.setText("User won!");
-			adjustButtons(compArray, "disable");
-			adjustButtons(userArray, "disable");
+			updateButtons(compArray, "disable");
+			updateButtons(userArray, "disable");
 			isHitting = true;}
 	}
 	
@@ -630,9 +621,9 @@ public class MainFrame extends JFrame implements ActionListener{
 			@Override
 			protected Void doInBackground() throws Exception {
 				final Point point = component.getLocation();
-				isShaking = true; // Obvious flag
+				isShaking = true;
 				for (int i = 0; i < 10; i++) {
-					// Debug: System.out.println(i);
+					
 					try {
 						moveComponent(new Point((point.x + 5), (point.y)), component);
 						Thread.sleep(15);
@@ -646,8 +637,8 @@ public class MainFrame extends JFrame implements ActionListener{
 						ex.printStackTrace();
 					}
 				}
-				// Debug: System.out.println("#");
-				isShaking = false; // Obvious flag
+				
+				isShaking = false;
 				return null;
 			}
 			
