@@ -53,7 +53,8 @@ public class Area extends JButton {
 	}
 	
 	public void changeIcon(ShipType type){
-		// Define and build icons, try catch required because of ImageIO
+		
+		// Define and build icons
 		try{
 			ImageIcon IMG_XCENTER = new ImageIcon(ImageIO.read(getClass().getResource("/shipcenterx.png")));
 			ImageIcon IMG_YCENTER = new ImageIcon(ImageIO.read(getClass().getResource("/shipcentery.png")));
