@@ -1,4 +1,4 @@
-package com.main;
+package com.ship;
 
 import javax.swing.JButton;
 

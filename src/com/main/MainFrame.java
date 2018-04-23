@@ -18,6 +18,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import com.area.Area;
+import com.area.AreaType;
+import com.ship.ShipModel;
+import com.ship.ShipType;
+
 import javax.swing.JButton;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -69,10 +75,8 @@ public class MainFrame extends JFrame implements ActionListener{
 						}
 					}
 					
-					// Inform player
 					infoLabel.setText("Computer has placed their ships, you're placing now!");
 					
-					// Disable computer buttons
 					updateButtons(compArray, "disable");
 					
 					// Computer places ship
@@ -115,9 +119,7 @@ public class MainFrame extends JFrame implements ActionListener{
 							}
 							compUsedModels.add(sm);
 						}
-						// Debug
-						// System.out.println("RY: " + ry + ", RX: " + rx + ", SM: " + sm + ", Count: " + countType(compAreaArray, AreaType.SHIP));
-					}
+				}
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -147,32 +149,17 @@ public class MainFrame extends JFrame implements ActionListener{
 		contentPane.setLayout(null);
 		
 		
-		// Label for computer
 		try {
 			JLabel labelComputer = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("/labelComputer.png"))));
 			labelComputer.setBounds(747, 7, 256, 32);
 			contentPane.add(labelComputer);
 		} catch (Exception e) {e.printStackTrace();}
 		
-		// Label for user
 		try {
 			JLabel labelUser = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("/labelUser.png"))));
 			labelUser.setBounds(175, 7, 256, 32);
 			contentPane.add(labelUser);
 		} catch (Exception e) {e.printStackTrace();}
-		
-		// #Debug JButton for revealing computer's ship placement
-		debugReveal = new JButton("Reveal");
-		debugReveal.setEnabled(false);
-		debugReveal.setBounds(1060, 800, 80,20);
-		debugReveal.addActionListener(new ActionListener(){ // Add ActionListener
-			public void actionPerformed(ActionEvent arg0) {
-				revealShips(compArray);
-			}
-			
-		});
-		contentPane.add(debugReveal);
-		
 		
 		// A label that displays information related to the state of the game
 		infoLabel = new JLabel("Information Label", SwingConstants.CENTER);
@@ -435,6 +422,13 @@ public class MainFrame extends JFrame implements ActionListener{
 				contentPane.add(area);
 			}
 		}
+	}
+
+	public static void setPlacing(boolean isPlacing) {
+		MainFrame.isPlacing = isPlacing;
+	}
+	public static void setSelectedShipModel(int selectedShipModel) {
+		MainFrame.selectedShipModel = selectedShipModel;
 	}
 
 	@Override

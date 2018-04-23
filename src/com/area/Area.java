@@ -1,8 +1,10 @@
-package com.main;
+package com.area;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
+import com.ship.ShipType;
 
 public class Area extends JButton {
 	

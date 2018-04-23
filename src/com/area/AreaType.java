@@ -1,4 +1,4 @@
-package com.main;
+package com.area;
 
 public enum AreaType {
 	BLANK,

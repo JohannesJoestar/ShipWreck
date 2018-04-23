@@ -1,4 +1,4 @@
-package com.main;
+package com.ship;
 
 public enum ShipType {
 	XCENTER,
