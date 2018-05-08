@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -37,8 +37,8 @@ public class MainFrame extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	
 	// Boolean stuff
+	private boolean isPlacing = false;
 	private static boolean isShaking = false;
-	private static boolean isPlacing = false;
 	private static boolean isHitting = false;
 	private static int selectedShipModel = 0;
 	
@@ -55,7 +55,6 @@ public class MainFrame extends JFrame implements ActionListener{
 	// Components
 	private static JLabel infoLabel;
 	private JPanel contentPane;
-	private static JButton debugReveal;
 
 	/**
 	 * Launch the application.
@@ -271,7 +270,7 @@ public class MainFrame extends JFrame implements ActionListener{
 				if (p != 9){
 					sm.setIcon(new ImageIcon(ImageIO.read(getClass().getResource("/shipModel" + (p + 1) + ".png"))));
 				}
-			} catch (Exception e) {}
+			} catch (IOException e) {}
 			
 			modelArray[p] = sm;
 			contentPane.add(sm);
@@ -424,8 +423,8 @@ public class MainFrame extends JFrame implements ActionListener{
 		}
 	}
 
-	public static void setPlacing(boolean isPlacing) {
-		MainFrame.isPlacing = isPlacing;
+	public void setPlacing(boolean isPlacing) {
+		this.isPlacing = isPlacing;
 	}
 	public static void setSelectedShipModel(int selectedShipModel) {
 		MainFrame.selectedShipModel = selectedShipModel;
